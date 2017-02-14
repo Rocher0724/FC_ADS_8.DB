@@ -21,11 +21,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public static final String DB_NAME = "database.db";
     public static final int DB_VERSION = 1;
 
-    private Dao<Bbs, Long> bbsDao;
-
-
-    // 생성자 제일 위에 것 선택.  databaseName , factory, databaseVersion은 안씀.
-    public DBHelper(Context context, String databaseName, SQLiteDatabase.CursorFactory factory, int databaseVersion) {
+    public DBHelper(Context context){
         super(context, DB_NAME, null, DB_VERSION);
     }
 
@@ -64,12 +60,22 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             e.printStackTrace();
         }
     }
+
+    private Dao<Bbs, Long> bbsDao = null;
     // Dao 객체를 통해서
     // Long은 키값이고 Bbs는 자료이다.
-    public Dao<Bbs, Long> getDao() throws SQLException {
-        if (bbsDao == null) {
-            bbsDao = getDao(Bbs.class);
+    public Dao<Bbs, Long> getBbsDao() throws SQLException {
+        if(bbsDao != null) {
+            return bbsDao;
         }
+        bbsDao = getDao(Bbs.class);
         return bbsDao;
+    }
+
+    // 메모리에서 null 시켜주는게 보통 release 함수들의 역할이다.
+    public void releaseBbsDao() {
+        if (bbsDao != null) {
+            bbsDao = null;
+        }
     }
 }

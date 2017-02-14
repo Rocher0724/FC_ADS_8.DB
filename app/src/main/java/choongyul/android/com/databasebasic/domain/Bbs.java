@@ -23,6 +23,22 @@ public class Bbs {
     @DatabaseField
     private Date currentDate;
 
+    public String getContent() {
+        return content;
+    }
+
+    public Date getCurrentDate() {
+        return currentDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
     // ormlite는 디폴트 생성자를 하나 가지고있어야한다
     // 이게 없으면 ormlite가 동작하지 않는다.
     Bbs() {
