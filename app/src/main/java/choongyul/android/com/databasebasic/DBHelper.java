@@ -27,13 +27,14 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     /**
      * 생성자에서 호출되는 super(context... 에서 database.db 파일이 생성되어 있지 않으면 호출된다
+     * 즉 여기에는 모든 데이터 테이블이 들어가있어야한다.
      * @param database
      * @param connectionSource
      */
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try{
-            // Bbs.class 파이렝 정의된 테이블을 생성한다.
+            // Bbs.class 파일에 정의된 테이블을 생성한다.
             TableUtils.createTable(connectionSource, Bbs.class);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,7 +42,10 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
-     * 파일이 존재하지만 DB_VERSION 이 증가하면 호출된다.
+     * 이전 버전을 갖고 있는 사람이 새 버전으로 업데이트 할때 호출된다.
+     * 예를들면 버전 1때는 아무것도 들어가있지 않아도 되며
+     * 버전 2때는 버전 2에서 추가된 테이블만 들어간다.
+     * 자세한 사용예시는 내 깃헙에서 project - Memoappp 을 확인해보자
      * @param database
      * @param connectionSource
      * @param oldVersion

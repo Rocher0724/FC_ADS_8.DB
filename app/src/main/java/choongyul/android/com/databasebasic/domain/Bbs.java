@@ -56,13 +56,9 @@ public class Bbs {
     Bbs() {
 
     }
-
     public Bbs(String title, String content, Date currentDate) {
         this.title = title;
         this.content = content;
         this.currentDate = currentDate;
     }
-
-
-
 }
